@@ -194,6 +194,23 @@
         });
       }
     });
+
+
+    // AFRAME.registerComponent('modify-materials', {
+    //   init: function () {
+    //     // Wait for model to load.
+    //     this.el.addEventListener('model-loaded', () => {
+    //       // Grab the mesh / scene.
+    //       const obj = this.el.getObject3D('mesh');
+    //       // Go over the submeshes and modify materials we want.
+    //       obj.traverse(node => {
+    //         if (node.name.indexOf('ship') !== -1) {
+    //           node.material.color.set('red');
+    //         }
+    //       });
+    //     });
+    //   }
+    // });
   </script>
   <style>
     .threed {
@@ -231,7 +248,8 @@
 <body style='margin : 0px; overflow: hidden; width: 100%; height: 100%'>
   <div class="prescreen"><img src="assets/pre-screen.png"></div>
   <div class="threed">
-    <a-scene vr-mode-ui="enabled: false" arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
+    <a-scene renderer="colorManagement: true" vr-mode-ui="enabled: false"
+      arjs="trackingMethod: best; sourceType: webcam; debugUIEnabled: false;">
       <a-assets>
         <video id="cc_video" autostart="false" controls poster="assets/celebrate-students-poster.png" loop="false"
           src="assets/celebrate_students.mp4" crossorigin></video>
@@ -239,27 +257,43 @@
         <img id="lbtn_img" src="assets/signup_button_50.png">
         <img id="cbtn_img" src="assets/instagram_button_50.png">
         <img id="rbtn_img" src="assets/new_button_50.png">
+        <a-asset-item id="techLogo" src="assets/technicool.obj"></a-asset-item>
+        <a-asset-item id="techmlt" src="assets/technicool.mtl"></a-asset-item>
       </a-assets>
       <a-marker markerhandler preset="hiro" emitevents="true" cursor="fuse: false; rayOrigin: mouse">
+        <!-- <a-entity light="type: ambient; color: #BBB" position="2.5 3 -1"></a-entity> -->
 
+        <a-obj-model src="#techLogo" mtl="#techmlt" position="2.5 1 -1" scale="3 3 3"
+          animation="property:rotation; from:0 0 0;to:0 0 360; dur: 3000;easing:linear; repeat:indefinite;loop:true">
+        </a-obj-model>
+        <!-- <a-entity position="2.5 1 -1" scale="3 3 3" gltf-model="#techLogo" modify-materials rotation="0 0 0"
+          animation="property:rotation; from:0 0 0;to:0 0 360; dur: 3000;easing:linear; repeat:indefinite;loop:true">
+        </a-entity> -->
+        <!-- <a-entity position="2.5 0 -1" scale="3 3 3" gltf-model="#techLogo" rotation="0 0 0">
+        </a-entity> -->
+        <!-- <a-entity light="type: directional; color: #FFF; intensity: 1" position="-0.5 5 1"></a-entity> -->
+
+        <!-- <a-light type="directional" position="0 0 0" rotation="-90 0 0" target="#directionaltarget">
+          <a-entity id="directionaltarget" position="0 0 -1"></a-entity>
+        </a-light> -->
 
         <a-video id="ccVideo" position="0 0 0" rotation="-90 0 0" height="2" width="4" src="#cc_video" cursor-listener>
         </a-video>
         <a-image id="poster" position="0 0 0" rotation="-90 0 0" height="2" width="4" src="#cc_video_poster"></a-image>
 
-        <a-image id="lbtn" class='click' src="#lbtn_img" rotation="-90 0 0" scale="2 0 2" position="-0.7 0 3"
-          width="0.6" height="0.6" cursor-listener
+        <a-image id="lbtn" src="#lbtn_img" rotation="-90 0 0" scale="2 0 2" position="-0.7 0 3" width="0.6" height="0.6"
+          cursor-listener
           animation__scale="property: scale; to: 1 1 1; delay: 500; dur: 1000; easing: easeOutCubic; startEvents: myStartEvent; pauseEvents: myPauseEvent; resumeEvents: myResumeEvent;"
           animation__position="property: position; to: -0.7 0 2; delay: 1000; dur: 1000; easing: easeOutCubic; startEvents: myStartEvent; pauseEvents: myPauseEvent; resumeEvents: myResumeEvent;">
         </a-image>
-        <a-image id="cbtn" class='click' src="#cbtn_img" rotation="-90 0 0" scale="2 0 2" position="0 0 3" width="0.6"
-          height="0.6" cursor-listener
+        <a-image id="cbtn" src="#cbtn_img" rotation="-90 0 0" scale="2 0 2" position="0 0 3" width="0.6" height="0.6"
+          cursor-listener
           animation__scale="property: scale; to: 1 1 1; delay: 1000; dur: 1000; easing: easeOutCubic; startEvents: myStartEvent; pauseEvents: myPauseEvent; resumeEvents: myResumeEvent;"
           animation__position="property: position; to: 0 0 2; delay: 1500; dur: 1000; easing: easeOutCubic; startEvents: myStartEvent; pauseEvents: myPauseEvent; resumeEvents: myResumeEvent;">
         </a-image>
 
-        <a-image id="rbtn" class='click' src="#rbtn_img" rotation="-90 0 0" scale="2 0 2" position="0.7 0 3" width="0.6"
-          height="0.6" cursor-listener
+        <a-image id="rbtn" src="#rbtn_img" rotation="-90 0 0" scale="2 0 2" position="0.7 0 3" width="0.6" height="0.6"
+          cursor-listener
           animation__scale="property: scale; to: 1 1 1; delay: 1500; dur: 1000; easing: easeOutCubic; startEvents: myStartEvent; pauseEvents: myPauseEvent; resumeEvents: myResumeEvent;"
           animation__position="property: position; to: 0.7 0 2; delay: 2000; dur: 1000; easing: easeOutCubic; startEvents: myStartEvent; pauseEvents: myPauseEvent; resumeEvents: myResumeEvent;">
         </a-image>
